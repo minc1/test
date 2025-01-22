@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're My Forever Valentine 💝</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div class="preloader">
+        <div class="hearts">
+            <div class="heart">💖</div>
+            <div class="heart">💖</div>
+            <div class="heart">💖</div>
+        </div>
+    </div>
+
+    <div class="background"></div>
+    
+    <main class="container">
+        <h1 class="title animate-pop">My Dearest <span class="name-highlight">[Her Name]</span></h1>
+        
+        <div class="photo-carousel">
+            <div class="carousel-inner">
+                <img src="photo1.jpg" alt="Our Memory 1" class="carousel-item active">
+                <img src="photo2.jpg" alt="Our Memory 2" class="carousel-item">
+                <img src="photo3.jpg" alt="Our Memory 3" class="carousel-item">
+            </div>
+            <button class="carousel-btn prev">❮</button>
+            <button class="carousel-btn next">❯</button>
+        </div>
+
+        <div class="message-box animate-slide">
+            <p class="message-text">From the moment we met, my life became a beautiful adventure. You're my sunshine, my best friend, and my everything. 💞</p>
+            <p class="message-text">Will you make me the luckiest person alive by being my forever Valentine?</p>
+        </div>
+
+        <div class="interaction-box">
+            <button class="response-btn yes-btn animate-bounce" onclick="respondYes()">
+                Absolutely Yes! 💍
+                <span class="hover-effect"></span>
+            </button>
+            <button class="response-btn no-btn" onmouseover="moveNoButton()">
+                Let me think... 🐾
+                <span class="hover-effect"></span>
+            </button>
+        </div>
+
+        <div id="response-message"></div>
+
+        <div class="music-player">
+            <button id="music-toggle" class="music-btn">🎵 Play Our Song</button>
+            <audio id="background-music" loop>
+                <source src="your-song.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Made with 💘 by [Your Name]</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
