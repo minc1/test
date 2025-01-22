@@ -63,7 +63,7 @@ function respondYes() {
     // Disable and hide the No button
     document.getElementById('noBtn').style.display = 'none';
     
-    // Transform the Yes button
+    // Transform the Yes button with 3D effect
     const yesBtn = document.getElementById('yesBtn');
     yesBtn.disabled = true;
     yesBtn.style.transform = 'rotateX(10deg) rotateY(10deg) scale(1.2)';
@@ -109,7 +109,7 @@ function dodgeButton() {
     messageElement.innerHTML = pleadingMessages[Math.floor(Math.random() * pleadingMessages.length)];
     messageElement.style.color = '#ff4d6d';
     
-    // Make Yes button more attractive
+    // Make Yes button more attractive with 3D effect
     const yesBtn = document.getElementById('yesBtn');
     yesBtn.style.transform = 'rotateX(10deg) rotateY(10deg) scale(1.1)';
     yesBtn.style.boxShadow = '0 0 20px rgba(255, 77, 109, 0.8)';
@@ -174,15 +174,20 @@ function createCelebrationEmojis() {
     const emojis = ['🎉', '🎊', '🎈', '🎸', '🎺', '✨', '⭐', '🌟'];
     const container = document.querySelector('.celebration-container');
     
+    // Clear existing celebration emojis
+    container.innerHTML = '';
+    
     for (let i = 0; i < 50; i++) {
         const emoji = document.createElement('div');
         emoji.className = 'celebration-emoji';
         emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
         emoji.style.left = `${Math.random() * 100}%`;
+        emoji.style.fontSize = `${20 + Math.random() * 20}px`;
         emoji.style.animationDelay = `${Math.random() * 2}s`;
         container.appendChild(emoji);
         
-        setTimeout(() => emoji.remove(), 2000);
+        // Remove emoji after animation completes
+        emoji.addEventListener('animationend', () => emoji.remove());
     }
 }
 
@@ -190,6 +195,7 @@ function createCelebrationEmojis() {
 function updateBackgroundHearts() {
     const hearts = document.querySelectorAll('.background-heart');
     hearts.forEach(heart => {
+        heart.style.transition = 'transform 1s ease-out';
         const rotation = Math.random() * 360;
         const scale = 0.5 + Math.random();
         heart.style.transform = `rotate(${rotation}deg) scale(${scale})`;

@@ -100,6 +100,12 @@ button {
     transform-style: preserve-3d;
 }
 
+.transform-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.3s ease-out;
+}
+
 #yesBtn {
     background: #ff4d6d;
     color: white;
@@ -191,19 +197,10 @@ button {
     position: absolute;
     font-size: 30px;
     pointer-events: none;
-    animation: celebrationFall 2s linear forwards;
+    animation: celebrationFall 2s ease-out forwards;
 }
 
-/* Rainbow Background Animation */
-@keyframes rainbowBg {
-    0% { background: #ffd1dc; }
-    25% { background: #ffb3ba; }
-    50% { background: #bae1ff; }
-    75% { background: #baffc9; }
-    100% { background: #ffd1dc; }
-}
-
-/* Animations */
+/* All Animations */
 @keyframes containerAppear {
     from {
         opacity: 0;
@@ -277,6 +274,26 @@ button {
     28% { transform: scale(1); }
     42% { transform: scale(1.3); }
     70% { transform: scale(1); }
+}
+
+@keyframes rotateAndScale {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.2);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+@keyframes rainbowBg {
+    0% { background: #ffd1dc; }
+    25% { background: #ffb3ba; }
+    50% { background: #bae1ff; }
+    75% { background: #baffc9; }
+    100% { background: #ffd1dc; }
 }
 
 /* Mobile Responsive Design */
