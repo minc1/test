@@ -18,9 +18,20 @@
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Prevent FOUC (Flash of Unstyled Content) -->
+    <style>
+        .preload * {
+            -webkit-transition: none !important;
+            -moz-transition: none !important;
+            -ms-transition: none !important;
+            -o-transition: none !important;
+            transition: none !important;
+        }
+    </style>
 </head>
-<body>
-    <!-- Background Containers -->
+<body class="preload">
+    <!-- Background Layers -->
     <div class="dynamic-hearts-background">
         <!-- Dynamic background hearts will be added here by JS -->
     </div>
@@ -37,6 +48,10 @@
             <p>Hey Sweetie! 💕</p>
             <p>Every moment with you feels like a beautiful dream come true. Your smile lights up my world, and your love makes every day special. I couldn't imagine spending Valentine's Day with anyone else but you.</p>
             <p>So... what do you say? Will you be my Valentine? 🌹</p>
+        </div>
+
+        <div class="hearts-container">
+            <!-- Dynamic hearts added by JS -->
         </div>
 
         <div class="buttons">
@@ -58,6 +73,9 @@
     <!-- Initialize Effects -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Remove preload class after page loads
+            document.body.classList.remove('preload');
+
             // Initialize floating hearts
             const container = document.querySelector('.floating-hearts');
             const hearts = ['💖', '💝', '💕', '💗'];
@@ -86,6 +104,20 @@
                 bgHeart.style.transform = `scale(${0.5 + Math.random()}) rotate(${Math.random() * 360}deg)`;
                 bgContainer.appendChild(bgHeart);
             }
+
+            // Handle visibility change to restart animations
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    updateBackgroundHearts();
+                }
+            });
+
+            // Handle resize events
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(updateBackgroundHearts, 100);
+            });
         });
     </script>
 </body>
