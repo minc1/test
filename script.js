@@ -14,7 +14,22 @@ const pleadingMessages = [
     "Plot twist: This button doesn't even work! 🎬",
     "Error 404: No button functionality not found 😅",
     "Maybe the Yes button is more your style? 💫",
-    "Roses are red, violets are blue, the Yes button is perfect for you! 🌹"
+    "Roses are red, violets are blue, the Yes button is perfect for you! 🌹",
+    // New fun messages
+    "Running away won't solve anything! 🏃‍♂️💨",
+    "Error 404: Rejection not found 🤖",
+    "You're breaking my pixels! 💔",
+    "I've got cookies on the Yes side! 🍪",
+    "The Yes button is feeling lonely! 🥺",
+    "Legend says the No button never worked 📜",
+    "Task failed successfully: Still waiting for Yes! ⌛",
+    "Plot twist: This is all a dream, just say Yes! 💭",
+    "Loading rejection.exe... Failed! 💿",
+    "Ctrl + Alt + Yes for best results! ⌨️",
+    "404: No button functionality not found! 🔍",
+    "Warning: No button may cause unexpected happiness! ⚠️",
+    "Calculating alternative options... Only YES found! 🧮",
+    "Have you tried turning it off and saying yes instead? 🔄"
 ];
 
 // Track number of dodge attempts
@@ -25,6 +40,9 @@ function respondYes() {
     const response = document.getElementById('response');
     response.innerHTML = "YAY! 💖 You've made me the happiest person! Let's make beautiful memories together! 💑";
     response.style.animation = "heartBeat 1.3s ease-in-out";
+    
+    // Enhanced celebration effects
+    document.body.style.animation = 'rainbowBg 2s infinite';
     
     // Trigger multiple confetti effects
     createConfetti({
@@ -48,18 +66,19 @@ function respondYes() {
     // Transform the Yes button
     const yesBtn = document.getElementById('yesBtn');
     yesBtn.disabled = true;
-    yesBtn.style.transform = 'scale(1.2)';
+    yesBtn.style.transform = 'rotateX(10deg) rotateY(10deg) scale(1.2)';
     yesBtn.style.animation = "heartBeat 1.3s ease-in-out infinite";
     yesBtn.innerHTML = 'Together Forever 💕';
 
-    // Add celebration effects
+    // Enhanced celebration
+    createCelebrationEmojis();
     addFloatingHearts();
     
     // Remove page leave confirmation
     window.onbeforeunload = null;
 }
 
-// Handle No button dodge
+// Handle No button dodge with progressive difficulty
 function dodgeButton() {
     // Don't dodge on touch devices
     if (window.matchMedia('(hover: none)').matches) return;
@@ -68,21 +87,23 @@ function dodgeButton() {
     const messageElement = document.getElementById('response');
     
     // Increase dodge speed and range based on attempts
-    const speed = Math.min(1 + dodgeCount / 10, 2);
-    const range = Math.min(100 + dodgeCount * 10, 300);
+    const speed = Math.min(1 + dodgeCount / 8, 2.5);
+    const range = Math.min(100 + dodgeCount * 15, 300);
     
-    // Calculate new random position
+    // Calculate new random position with more erratic movement
     const x = Math.random() * range - range/2;
     const y = Math.random() * range - range/2;
     
-    // Apply smooth transition
-    noBtn.style.transition = `transform ${0.2/speed}s ease-out`;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    // Make movement more erratic as dodge count increases
+    const wobble = Math.sin(dodgeCount) * (10 + dodgeCount);
+    const rotation = Math.random() * 360 + wobble;
     
-    // Add rotation and scale for extra fun
-    const rotation = Math.random() * 360;
-    const scale = 0.7 + Math.random() * 0.3;
-    noBtn.style.transform += ` rotate(${rotation}deg) scale(${scale})`;
+    // Progressive size reduction
+    const scale = Math.max(0.5, 1 - (dodgeCount * 0.05));
+    
+    // Apply smooth transition with variable speed
+    noBtn.style.transition = `all ${0.2/speed}s ${dodgeCount > 5 ? 'ease-in-out' : 'ease-out'}`;
+    noBtn.style.transform = `translate(${x + wobble}px, ${y}px) rotate(${rotation}deg) scale(${scale})`;
     
     // Show random pleading message
     messageElement.innerHTML = pleadingMessages[Math.floor(Math.random() * pleadingMessages.length)];
@@ -90,16 +111,17 @@ function dodgeButton() {
     
     // Make Yes button more attractive
     const yesBtn = document.getElementById('yesBtn');
-    yesBtn.style.transform = 'scale(1.1)';
+    yesBtn.style.transform = 'rotateX(10deg) rotateY(10deg) scale(1.1)';
     yesBtn.style.boxShadow = '0 0 20px rgba(255, 77, 109, 0.8)';
     
     // Reset Yes button after a short delay
     setTimeout(() => {
-        yesBtn.style.transform = 'scale(1)';
+        yesBtn.style.transform = 'rotateX(0) rotateY(0) scale(1)';
         yesBtn.style.boxShadow = '0 4px 15px rgba(255, 77, 109, 0.4)';
     }, 200);
     
     dodgeCount++;
+    updateBackgroundHearts();
 }
 
 // Create regular confetti
@@ -147,6 +169,33 @@ function setupParticle(particle, spread, origin) {
     }, (3 / velocity) * 1000);
 }
 
+// Enhanced celebration emojis
+function createCelebrationEmojis() {
+    const emojis = ['🎉', '🎊', '🎈', '🎸', '🎺', '✨', '⭐', '🌟'];
+    const container = document.querySelector('.celebration-container');
+    
+    for (let i = 0; i < 50; i++) {
+        const emoji = document.createElement('div');
+        emoji.className = 'celebration-emoji';
+        emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = `${Math.random() * 100}%`;
+        emoji.style.animationDelay = `${Math.random() * 2}s`;
+        container.appendChild(emoji);
+        
+        setTimeout(() => emoji.remove(), 2000);
+    }
+}
+
+// Update dynamic background hearts
+function updateBackgroundHearts() {
+    const hearts = document.querySelectorAll('.background-heart');
+    hearts.forEach(heart => {
+        const rotation = Math.random() * 360;
+        const scale = 0.5 + Math.random();
+        heart.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+    });
+}
+
 // Add floating hearts celebration
 function addFloatingHearts() {
     const container = document.querySelector('.floating-hearts');
@@ -173,6 +222,9 @@ function addFloatingHearts() {
 document.addEventListener('DOMContentLoaded', () => {
     // Add initial floating hearts
     addFloatingHearts();
+    
+    // Initialize dynamic background
+    updateBackgroundHearts();
     
     // Prevent accidental page refresh
     window.onbeforeunload = function() {

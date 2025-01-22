@@ -20,8 +20,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Background Hearts Container -->
-    <div class="floating-hearts"></div>
+    <!-- Background Containers -->
+    <div class="dynamic-hearts-background">
+        <!-- Dynamic background hearts will be added here by JS -->
+    </div>
+
+    <div class="floating-hearts">
+        <!-- Floating hearts will be added here by JS -->
+    </div>
 
     <!-- Main Content Container -->
     <div class="container">
@@ -33,24 +39,26 @@
             <p>So... what do you say? Will you be my Valentine? 🌹</p>
         </div>
 
-        <div class="hearts-container">
-            <!-- Dynamic hearts added by JS -->
-        </div>
-
         <div class="buttons">
-            <button id="yesBtn" onclick="respondYes()">YES! 💖</button>
+            <button id="yesBtn" onclick="respondYes()" class="transform-3d">YES! 💖</button>
             <button id="noBtn" onmouseover="dodgeButton()">No 🤔</button>
         </div>
 
         <div id="response"></div>
     </div>
 
+    <!-- Celebration Effects Container -->
+    <div class="celebration-container">
+        <!-- Celebration effects will be added here by JS -->
+    </div>
+
     <!-- Scripts -->
     <script src="script.js"></script>
 
-    <!-- Initialize floating hearts -->
+    <!-- Initialize Effects -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize floating hearts
             const container = document.querySelector('.floating-hearts');
             const hearts = ['💖', '💝', '💕', '💗'];
             
@@ -62,6 +70,21 @@
                 heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 heart.style.animationDelay = (Math.random() * 2) + 's';
                 container.appendChild(heart);
+            }
+
+            // Initialize dynamic background hearts
+            const bgContainer = document.querySelector('.dynamic-hearts-background');
+            const bgHearts = ['💗', '💓', '💖', '💘', '💝', '💕'];
+            
+            for (let i = 0; i < 30; i++) {
+                const bgHeart = document.createElement('div');
+                bgHeart.className = 'background-heart';
+                bgHeart.innerHTML = bgHearts[Math.floor(Math.random() * bgHearts.length)];
+                bgHeart.style.left = Math.random() * 100 + 'vw';
+                bgHeart.style.top = Math.random() * 100 + 'vh';
+                bgHeart.style.opacity = 0.1 + Math.random() * 0.1;
+                bgHeart.style.transform = `scale(${0.5 + Math.random()}) rotate(${Math.random() * 360}deg)`;
+                bgContainer.appendChild(bgHeart);
             }
         });
     </script>

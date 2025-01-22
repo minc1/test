@@ -18,6 +18,7 @@ body {
     align-items: center;
     color: #333;
     position: relative;
+    perspective: 1000px;
 }
 
 /* Container Styles */
@@ -68,17 +69,6 @@ h1 {
     margin-bottom: 0;
 }
 
-/* Hearts Container */
-.hearts-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 1;
-}
-
 /* Buttons Container */
 .buttons {
     margin: 30px 0;
@@ -88,9 +78,10 @@ h1 {
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
+    perspective: 1000px;
 }
 
-/* Button Styles */
+/* Enhanced 3D Button Styles */
 button {
     padding: 15px 40px;
     font-size: 1.3em;
@@ -106,6 +97,7 @@ button {
     opacity: 0;
     transform: translateY(20px);
     animation: buttonAppear 0.8s ease-out forwards;
+    transform-style: preserve-3d;
 }
 
 #yesBtn {
@@ -113,12 +105,14 @@ button {
     color: white;
     box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
     animation-delay: 1s;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 #yesBtn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
-    background: #ff3357;
+    transform: rotateX(10deg) rotateY(10deg) scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6),
+                -5px -5px 15px rgba(255, 255, 255, 0.5),
+                5px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 #noBtn {
@@ -127,10 +121,7 @@ button {
     position: relative;
     transition: all 0.2s;
     animation-delay: 1.2s;
-}
-
-#noBtn:hover {
-    background: #777;
+    transform-style: preserve-3d;
 }
 
 /* Response Message */
@@ -142,6 +133,26 @@ button {
     transition: all 0.3s;
     font-weight: 600;
     padding: 10px;
+}
+
+/* Dynamic Hearts Background */
+.dynamic-hearts-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.background-heart {
+    position: absolute;
+    font-size: 40px;
+    color: rgba(255, 77, 109, 0.1);
+    pointer-events: none;
+    transition: transform 2s ease-in-out;
 }
 
 /* Floating Hearts */
@@ -163,13 +174,33 @@ button {
     opacity: 0.6;
 }
 
-/* Background Hearts */
-.background-heart {
-    position: absolute;
-    font-size: 150px;
-    color: rgba(255, 255, 255, 0.1);
-    z-index: -1;
+/* Celebration Container */
+.celebration-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+/* Celebration Effects */
+.celebration-emoji {
+    position: absolute;
+    font-size: 30px;
+    pointer-events: none;
+    animation: celebrationFall 2s linear forwards;
+}
+
+/* Rainbow Background Animation */
+@keyframes rainbowBg {
+    0% { background: #ffd1dc; }
+    25% { background: #ffb3ba; }
+    50% { background: #bae1ff; }
+    75% { background: #baffc9; }
+    100% { background: #ffd1dc; }
 }
 
 /* Animations */
@@ -226,7 +257,7 @@ button {
     }
 }
 
-@keyframes fall {
+@keyframes celebrationFall {
     0% {
         transform: translateY(-100vh) rotate(0deg);
         opacity: 1;
@@ -246,16 +277,6 @@ button {
     28% { transform: scale(1); }
     42% { transform: scale(1.3); }
     70% { transform: scale(1); }
-}
-
-/* Confetti Animation */
-@keyframes confettiRain {
-    0% {
-        transform: translateY(-100%) rotate(0deg);
-    }
-    100% {
-        transform: translateY(100vh) rotate(360deg);
-    }
 }
 
 /* Mobile Responsive Design */
@@ -291,6 +312,10 @@ button {
 
     .floating-heart {
         font-size: 20px;
+    }
+
+    .background-heart {
+        font-size: 30px;
     }
 }
 
@@ -329,6 +354,10 @@ button {
 
     .floating-heart {
         font-size: 18px;
+    }
+
+    .background-heart {
+        font-size: 25px;
     }
 
     #response {
