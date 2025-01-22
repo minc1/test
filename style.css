@@ -1,344 +1,65 @@
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     background: #ffd1dc;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Arial', sans-serif;
     text-align: center;
     margin: 0;
     padding: 20px;
-    overflow-x: hidden;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #333;
-    position: relative;
-    transition: background 0.5s;
 }
 
-body.celebrate {
-    background: linear-gradient(45deg, #ff6b6b, #ff8e8e, #ffd1dc);
-    animation: rainbow 3s infinite;
-}
-
-@keyframes rainbow {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
-}
-
-/* Love Meter */
-.love-meter {
-    position: absolute;
-    top: 20px;
-    width: 80%;
-    max-width: 400px;
-    z-index: 3;
-}
-
-.love-meter input[type="range"] {
-    width: 100%;
-    cursor: pointer;
-}
-
-.meter-text {
-    margin-top: 10px;
-    font-size: 1.2em;
-    color: #ff4d6d;
-}
-
-/* Container Styles */
 .container {
     max-width: 800px;
     margin: 0 auto;
-    position: relative;
-    padding: 20px;
-    z-index: 2;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    border-radius: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    animation: containerAppear 1s ease-out;
 }
 
-/* Typography */
-h1 {
-    color: #ff4d6d;
-    font-size: 2.5em;
-    margin-bottom: 30px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    animation: titleFloat 2s ease-in-out infinite;
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 20px 0;
 }
 
-/* Message Box */
+.photo-grid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 .message {
     background: white;
-    padding: 30px;
-    border-radius: 20px;
+    padding: 20px;
+    border-radius: 10px;
     margin: 20px 0;
     font-size: 1.2em;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    line-height: 1.6;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: messageAppear 0.8s ease-out forwards;
-    animation-delay: 0.5s;
 }
 
-.message p {
-    margin-bottom: 15px;
-}
-
-.message p:last-child {
-    margin-bottom: 0;
-}
-
-/* Hearts Container */
-.hearts-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Buttons Container */
 .buttons {
-    margin: 30px 0;
-    min-height: 150px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    margin: 20px 0;
 }
 
-/* Button Styles */
 button {
-    padding: 15px 40px;
-    font-size: 1.3em;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    margin: 0 10px;
     border: none;
-    border-radius: 50px;
+    border-radius: 25px;
     cursor: pointer;
-    transition: all 0.3s;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: buttonAppear 0.8s ease-out forwards;
+    transition: transform 0.3s;
 }
 
 #yesBtn {
     background: #ff4d6d;
     color: white;
-    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
-    animation-delay: 1s;
-}
-
-#yesBtn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
-    background: #ff3357;
 }
 
 #noBtn {
     background: #666;
     color: white;
-    position: relative;
-    transition: all 0.2s;
-    animation-delay: 1.2s;
 }
 
-#noBtn:hover {
-    background: #777;
-}
-
-/* Response Message */
 #response {
     font-size: 1.5em;
     color: #ff4d6d;
     margin-top: 20px;
-    min-height: 60px;
-    transition: all 0.3s;
-    font-weight: 600;
-    padding: 10px;
-}
-
-/* Floating Hearts */
-.floating-hearts {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
-}
-
-.floating-heart {
-    position: fixed;
-    font-size: 24px;
-    animation: floatUp 3s linear infinite;
-    opacity: 0.6;
-}
-
-/* Game Hearts */
-.game-heart {
-    position: fixed;
-    cursor: pointer;
-    font-size: 30px;
-    z-index: 1000;
-}
-
-/* Animations */
-@keyframes containerAppear {
-    from {
-        opacity: 0;
-        transform: scale(0.9) translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-@keyframes titleFloat {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-@keyframes messageAppear {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes buttonAppear {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes floatUp {
-    0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0.6;
-    }
-    100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-@keyframes fall {
-    0% {
-        transform: translateY(-100vh) rotate(0deg);
-        opacity: 1;
-    }
-    80% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-    }
-}
-
-@keyframes heartBeat {
-    0% { transform: scale(1); }
-    14% { transform: scale(1.3); }
-    28% { transform: scale(1); }
-    42% { transform: scale(1.3); }
-    70% { transform: scale(1); }
-}
-
-/* Mobile Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-        margin: 10px;
-        max-width: 95%;
-    }
-
-    h1 {
-        font-size: 2em;
-    }
-    
-    .message {
-        padding: 20px;
-        font-size: 1.1em;
-    }
-    
-    button {
-        width: 80%;
-        padding: 15px 20px;
-        font-size: 1.1em;
-        margin: 5px 0;
-    }
-
-    .buttons {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        margin: 20px 0;
-    }
-
-    .floating-heart {
-        font-size: 20px;
-    }
-}
-
-/* Small Screen Optimization */
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
-
-    .container {
-        padding: 10px;
-    }
-    
-    h1 {
-        font-size: 1.8em;
-        margin-bottom: 20px;
-    }
-    
-    .message {
-        font-size: 1em;
-        padding: 15px;
-    }
-
-    .floating-heart {
-        font-size: 18px;
-    }
-
-    #response {
-        font-size: 1.2em;
-    }
 }

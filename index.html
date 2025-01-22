@@ -1,76 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A special Valentine's Day proposal">
-    <meta name="theme-color" content="#ffd1dc">
-    
-    <title>Will You Be My Valentine? 💝</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💝</text></svg>">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    
-    <!-- Custom Styles -->
+    <title>Will You Be My Valentine?</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Background Hearts Container -->
-    <div class="floating-hearts"></div>
-
-    <!-- Love Meter -->
-    <div class="love-meter">
-        <input type="range" id="loveSlider" min="0" max="100" value="50">
-        <div class="meter-text">Slide to show your love level! 💖</div>
-    </div>
-
-    <!-- Main Content Container -->
     <div class="container">
-        <h1>Will You Be My Valentine? 💝</h1>
+        <h1>💖 My Special Someone 💖</h1>
         
-        <div class="message">
-            <p>Hey Sweetie! 💕</p>
-            <p>Every moment with you feels like a beautiful dream come true. Your smile lights up my world, and your love makes every day special. I couldn't imagine spending Valentine's Day with anyone else but you.</p>
-            <p>So... what do you say? Will you be my Valentine? 🌹</p>
+        <!-- Add your photos -->
+        <div class="photo-grid">
+            <img src="YOUR_PHOTO_URL_1" alt="Our Memory">
+            <img src="YOUR_PHOTO_URL_2" alt="Our Memory">
         </div>
 
-        <div class="hearts-container">
-            <!-- Dynamic hearts added by JS -->
+        <div class="message">
+            <p>[Your girlfriend's name],</p>
+            <p>Every moment with you feels like a beautiful story. Will you make me the happiest person by being my Valentine?</p>
         </div>
 
         <div class="buttons">
-            <button id="yesBtn" onclick="respondYes()">YES! 💖</button>
-            <button id="noBtn" onmouseover="dodgeButton()">No 🤔</button>
+            <button id="yesBtn" onclick="respondYes()">YES!</button>
+            <button id="noBtn" onmouseover="dodgeButton()">No</button>
         </div>
 
         <div id="response"></div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script src="script.js"></script>
-
-    <!-- Initialize floating hearts -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.querySelector('.floating-hearts');
-            const hearts = ['💖', '💝', '💕', '💗'];
-            
-            for (let i = 0; i < 20; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'floating-heart';
-                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                heart.style.animationDelay = (Math.random() * 2) + 's';
-                container.appendChild(heart);
-            }
-        });
-    </script>
 </body>
 </html>
