@@ -18,26 +18,15 @@
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Prevent FOUC (Flash of Unstyled Content) -->
-    <style>
-        .preload * {
-            -webkit-transition: none !important;
-            -moz-transition: none !important;
-            -ms-transition: none !important;
-            -o-transition: none !important;
-            transition: none !important;
-        }
-    </style>
 </head>
-<body class="preload">
-    <!-- Background Layers -->
-    <div class="dynamic-hearts-background">
-        <!-- Dynamic background hearts will be added here by JS -->
-    </div>
+<body>
+    <!-- Background Hearts Container -->
+    <div class="floating-hearts"></div>
 
-    <div class="floating-hearts">
-        <!-- Floating hearts will be added here by JS -->
+    <!-- Love Meter -->
+    <div class="love-meter">
+        <input type="range" id="loveSlider" min="0" max="100" value="50">
+        <div class="meter-text">Slide to show your love level! 💖</div>
     </div>
 
     <!-- Main Content Container -->
@@ -55,28 +44,20 @@
         </div>
 
         <div class="buttons">
-            <button id="yesBtn" onclick="respondYes()" class="transform-3d">YES! 💖</button>
+            <button id="yesBtn" onclick="respondYes()">YES! 💖</button>
             <button id="noBtn" onmouseover="dodgeButton()">No 🤔</button>
         </div>
 
         <div id="response"></div>
     </div>
 
-    <!-- Celebration Effects Container -->
-    <div class="celebration-container">
-        <!-- Celebration effects will be added here by JS -->
-    </div>
-
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script src="script.js"></script>
 
-    <!-- Initialize Effects -->
+    <!-- Initialize floating hearts -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Remove preload class after page loads
-            document.body.classList.remove('preload');
-
-            // Initialize floating hearts
             const container = document.querySelector('.floating-hearts');
             const hearts = ['💖', '💝', '💕', '💗'];
             
@@ -89,35 +70,6 @@
                 heart.style.animationDelay = (Math.random() * 2) + 's';
                 container.appendChild(heart);
             }
-
-            // Initialize dynamic background hearts
-            const bgContainer = document.querySelector('.dynamic-hearts-background');
-            const bgHearts = ['💗', '💓', '💖', '💘', '💝', '💕'];
-            
-            for (let i = 0; i < 30; i++) {
-                const bgHeart = document.createElement('div');
-                bgHeart.className = 'background-heart';
-                bgHeart.innerHTML = bgHearts[Math.floor(Math.random() * bgHearts.length)];
-                bgHeart.style.left = Math.random() * 100 + 'vw';
-                bgHeart.style.top = Math.random() * 100 + 'vh';
-                bgHeart.style.opacity = 0.1 + Math.random() * 0.1;
-                bgHeart.style.transform = `scale(${0.5 + Math.random()}) rotate(${Math.random() * 360}deg)`;
-                bgContainer.appendChild(bgHeart);
-            }
-
-            // Handle visibility change to restart animations
-            document.addEventListener('visibilitychange', () => {
-                if (!document.hidden) {
-                    updateBackgroundHearts();
-                }
-            });
-
-            // Handle resize events
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(updateBackgroundHearts, 100);
-            });
         });
     </script>
 </body>
