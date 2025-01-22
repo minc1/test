@@ -24,7 +24,7 @@ let dodgeCount = 0;
 function respondYes() {
     const response = document.getElementById('response');
     response.innerHTML = "YAY! 💖 You've made me the happiest person! Let's make beautiful memories together! 💑";
-    response.style.transform = 'scale(1.1)';
+    response.style.animation = "heartBeat 1.3s ease-in-out";
     
     // Trigger multiple confetti effects
     createConfetti({
@@ -33,7 +33,7 @@ function respondYes() {
         origin: { y: 0.6 }
     });
 
-    // Add heart confetti
+    // Add heart confetti with delay
     setTimeout(() => {
         createHeartConfetti({
             particleCount: 50,
@@ -42,21 +42,28 @@ function respondYes() {
         });
     }, 300);
 
-    // Disable the No button
+    // Disable and hide the No button
     document.getElementById('noBtn').style.display = 'none';
     
-    // Make the Yes button unclickable after success
+    // Transform the Yes button
     const yesBtn = document.getElementById('yesBtn');
     yesBtn.disabled = true;
     yesBtn.style.transform = 'scale(1.2)';
+    yesBtn.style.animation = "heartBeat 1.3s ease-in-out infinite";
     yesBtn.innerHTML = 'Together Forever 💕';
 
-    // Add floating hearts celebration
+    // Add celebration effects
     addFloatingHearts();
+    
+    // Remove page leave confirmation
+    window.onbeforeunload = null;
 }
 
 // Handle No button dodge
 function dodgeButton() {
+    // Don't dodge on touch devices
+    if (window.matchMedia('(hover: none)').matches) return;
+    
     const noBtn = document.getElementById('noBtn');
     const messageElement = document.getElementById('response');
     
@@ -64,11 +71,12 @@ function dodgeButton() {
     const speed = Math.min(1 + dodgeCount / 10, 2);
     const range = Math.min(100 + dodgeCount * 10, 300);
     
-    // Calculate new position
+    // Calculate new random position
     const x = Math.random() * range - range/2;
     const y = Math.random() * range - range/2;
     
-    // Apply transforms
+    // Apply smooth transition
+    noBtn.style.transition = `transform ${0.2/speed}s ease-out`;
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
     
     // Add rotation and scale for extra fun
@@ -139,11 +147,11 @@ function setupParticle(particle, spread, origin) {
     }, (3 / velocity) * 1000);
 }
 
-// Add extra floating hearts after saying yes
+// Add floating hearts celebration
 function addFloatingHearts() {
     const container = document.querySelector('.floating-hearts');
     const hearts = ['💖', '💝', '💕', '💗'];
-    const numHearts = 30; // Add more hearts for celebration
+    const numHearts = 30;
     
     for (let i = 0; i < numHearts; i++) {
         const heart = document.createElement('div');
@@ -170,4 +178,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.onbeforeunload = function() {
         return "Don't leave yet! You haven't answered!";
     };
+    
+    // Add touch event listener for mobile
+    if (window.matchMedia('(hover: none)').matches) {
+        const noBtn = document.getElementById('noBtn');
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const messageElement = document.getElementById('response');
+            messageElement.innerHTML = pleadingMessages[Math.floor(Math.random() * pleadingMessages.length)];
+            messageElement.style.color = '#ff4d6d';
+        });
+    }
 });
